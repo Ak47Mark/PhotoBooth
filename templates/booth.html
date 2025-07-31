@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fotózás</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <p id="countdown"></p>
+  <img src="/stream" id="live">
+  <br>
+  <button id="photo-button" onclick="startCountdown()">Fotózz!</button>
+
+  <script>
+    let countdownEl = document.getElementById('countdown');
+    let button = document.getElementById('photo-button');
+
+    function startCountdown() {
+      let count = 5;
+      button.disabled = true;
+      countdownEl.innerText = count;
+
+      let countdownInterval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownEl.innerText = count;
+        } else {
+          clearInterval(countdownInterval);
+          countdownEl.innerText = '';
+          takePhoto();
+        }
+      }, 1000);
+    }
+
+    function takePhoto() {
+      fetch('/photo', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'ok') {
+            window.location.href = '/result';
+          } else {
+            countdownEl.innerText = 'Hiba történt!';
+            button.disabled = false;
+          }
+        });
+    }
+  </script>
+</body>
+</html>

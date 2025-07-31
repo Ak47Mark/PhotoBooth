@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Esküvői Fotósarok</title>
+  <style>
+    body {
+      background-color: #6495ed;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 9em;
+      margin-bottom: 1em;
+      color: #ecf4f8;
+    }
+    .touch {
+        font-size: 5.5em;
+      color: #ecf4f8;
+    }
+  </style>
+</head>
+<body onclick="location.href='/booth'">
+  <div>
+    <h1>Nyomtatás...</h1>
+  </div>
+  <script>
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 10000);
+  </script>
+</body>
+</html>

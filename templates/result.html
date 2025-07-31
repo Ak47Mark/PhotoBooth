@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fotód elkészült</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <img id="result" src="/static/photos/{{ filename }}" alt="photo">
+  <div class="buttons">
+    <form method="post" action="/print">
+      <input type="hidden" name="filename" value="{{ filename }}">
+      <button type="submit" class="print">Nyomtatás</button>
+    </form>
+    <button class="back" onclick="location.href='/booth'">Új fotó</button>
+  </div>
+</body>
+</html>
