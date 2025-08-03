@@ -3,7 +3,7 @@ from camera import Camera
 import os
 import datetime
 import platform
-import RPi.GPIO as GPIO
+import RPI.GPIO as GPIO
 
 app = Flask(__name__)
 camera = Camera()
