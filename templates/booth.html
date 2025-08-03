@@ -15,6 +15,7 @@
     let button = document.getElementById('photo-button');
 
     function startCountdown() {
+      fetch('/relay/on', { method: 'POST' });
       let count = 5;
       button.disabled = true;
       countdownEl.innerText = count;
@@ -35,6 +36,7 @@
       fetch('/photo', { method: 'POST' })
         .then(res => res.json())
         .then(data => {
+          fetch('/relay/off', { method: 'POST' });
           if (data.status === 'ok') {
             window.location.href = '/result';
           } else {

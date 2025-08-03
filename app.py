@@ -3,13 +3,21 @@ from camera import Camera
 import os
 import datetime
 import platform
+import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 camera = Camera()
 latest_filename = None
+RELAY_PIN = 17
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(RELAY_PIN, GPIO.OUT)
+GPIO.output(RELAY_PIN, GPIO.LOW)
 
 @app.route('/')
 def welcome():
+    # camera.release()
     return render_template('index.html')
 
 @app.route('/booth')
@@ -56,9 +64,19 @@ def print_photo():
             full_path = os.path.abspath(f"static/photos/{filename}")
             os.startfile(full_path)
         else:
-            os.system(f"lp {full_path}")
+            os.system(f"lp -o media=Custom.100x150mm {full_path}")
         return render_template('print.html')
     return render_template('index.html')
+
+@app.route('/relay/on', methods=['POST'])
+def relay_on():
+    GPIO.output(RELAY_PIN, GPIO.HIGH)
+    return {'status': 'on'}
+
+@app.route('/relay/off', methods=['POST'])
+def relay_off():
+    GPIO.output(RELAY_PIN, GPIO.LOW)
+    return {'status': 'off'}
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
