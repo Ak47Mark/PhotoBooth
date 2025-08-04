@@ -4,6 +4,9 @@ class Camera:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
 
+    def start(self):
+        self.cap = cv2.VideoCapture(0)
+
     def get_frame(self):
         success, frame = self.cap.read()
         if not success:

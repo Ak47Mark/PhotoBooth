@@ -17,11 +17,12 @@ GPIO.output(RELAY_PIN, GPIO.LOW)
 
 @app.route('/')
 def welcome():
-    # camera.release()
+    camera.release()
     return render_template('index.html')
 
 @app.route('/booth')
 def booth():
+    camera.start()
     return render_template('booth.html')
 
 @app.route('/result')
@@ -64,7 +65,7 @@ def print_photo():
             full_path = os.path.abspath(f"static/photos/{filename}")
             os.startfile(full_path)
         else:
-            os.system(f"lp -o media=Custom.100x150mm {full_path}")
+            os.system(f"lp -o media=Custom.100x150mm -o media-type=PhotographicGlossy -o fit-to-page {full_path}")
         return render_template('print.html')
     return render_template('index.html')
 
