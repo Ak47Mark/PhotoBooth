@@ -27,6 +27,7 @@ def booth():
 
 @app.route('/result')
 def result():
+    camera.release()
     global latest_filename
     if latest_filename:
         return render_template('result.html', filename=latest_filename)
@@ -65,9 +66,13 @@ def print_photo():
             full_path = os.path.abspath(f"static/photos/{filename}")
             os.startfile(full_path)
         else:
-            os.system(f"lp -o media=Custom.100x150mm -o media-type=PhotographicGlossy -o fit-to-page {full_path}")
+            os.system(f"lp -o page-left=3 -o media=Custom.100x150mm -o media-type=PhotographicGlossy {full_path}")
         return render_template('print.html')
     return render_template('index.html')
+
+@app.route('/camera', methods=['POST'])
+def camera_on():
+    camera.start()
 
 @app.route('/relay/on', methods=['POST'])
 def relay_on():
