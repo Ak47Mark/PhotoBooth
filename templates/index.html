@@ -13,20 +13,36 @@
       justify-content: center;
       height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
+
+    .container {
+      position: relative;
+      animation: drift 30s infinite alternate ease-in-out;
+    }
+
     h1 {
       font-size: 9em;
       margin-bottom: 1em;
       color: #6495ed;
     }
+
     .touch {
       font-size: 5.5em;
       color: #6495ed;
     }
+
+    @keyframes drift {
+      0%   { transform: translate(0px, 0px); }
+      25%  { transform: translate(15px, 6px); }
+      50%  { transform: translate(-15px, -6px); }
+      75%  { transform: translate(9px, -9px); }
+      100% { transform: translate(0px, 0px); }
+    }
   </style>
 </head>
 <body onclick="location.href='/booth'">
-  <div>
+  <div class="container">
     <h1>Üdvözlünk a Fotósarokban!</h1>
     <div class="touch">Érintsd meg a kijelzőt a kezdéshez</div>
   </div>

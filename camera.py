@@ -11,7 +11,7 @@ class Camera:
         success, frame = self.cap.read()
         if not success:
             return None
-        frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
         _, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()
 
